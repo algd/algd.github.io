@@ -1,0 +1,50 @@
+<script type='text/javascript'>
+    var sink5 = [];
+
+    function show5() {
+        if (sink5.length) return;
+        sink5 = build(
+            document.getElementById("graph5"),
+            [
+                {
+                    color: 0,
+                    speed: 1,
+                    parallelism: 2,
+                    async: true,
+                    html: "<h1>Download file</h1><p>Processed in parallel by two actors</p>"
+                },
+                {
+                    color: 1,
+                    speed: 10,
+                    parallelism: 1,
+                    async: true,
+                    html: "<h1>Count words</h1><p>Processed by another actor</p>"
+                },
+                {
+                    color: 2,
+                    speed: 2,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Update file</h1><p>Processed by another actor</p>"
+                }
+            ]
+        );
+    }
+
+    function stop5() {
+        stopAll(sink5);
+        sink5 = [];
+        var node = document.getElementById("graph5");
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+    }
+
+</script>
+<div>
+    <blockquote style="align:center; width:100%;">
+        <p>Every task is processed by a different actor.</p>
+        <p><button type="button" onclick="show5()">▷ Play demo</button><button type="button" onclick="stop5()">◻ Stop</button></p>
+        <div id="graph5"></div>
+    </blockquote>
+</div>

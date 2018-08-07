@@ -1,0 +1,50 @@
+<script type='text/javascript'>
+    var sink1 = [];
+
+    function show1() {
+        if (sink1.length) return;
+        sink1 = build(
+            document.getElementById("graph1"),
+            [
+                {
+                    color: 0,
+                    speed: 1,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Download file</h1><p>~2 seconds</p>"
+                },
+                {
+                    color: 1,
+                    speed: 10,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Count words</h1><p>~0.1 seconds</p>"
+                },
+                {
+                    color: 2,
+                    speed: 2,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Update file</h1><p>~1 second</p>"
+                }
+            ]
+        );
+    }
+
+    function stop1() {
+        stopAll(sink1);
+        sink1 = [];
+        var node = document.getElementById("graph1");
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+    }
+
+</script>
+<div>
+    <blockquote style="align:center; width:100%;">
+        <p>One actor executes the entire process sequentially.</p>
+        <p><button type="button" onclick="show1()">▷ Play demo</button><button type="button" onclick="stop1()">◻ Stop</button></p>
+        <div id="graph1"></div>
+    </blockquote>
+</div>

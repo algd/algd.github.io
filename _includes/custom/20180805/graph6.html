@@ -1,0 +1,50 @@
+<script type='text/javascript'>
+    var sink6 = [];
+
+    function show6() {
+        if (sink6.length) return;
+        sink6 = build(
+            document.getElementById("graph6"),
+            [
+                {
+                    color: 0,
+                    speed: 10,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>GroupBy</h1><p>Files to update</p>"
+                },
+                {
+                    color: 1,
+                    speed: 2,
+                    parallelism: 3,
+                    async: false,
+                    html: "<h1>Update file</h1><p>Processed by the same actor</p>"
+                },
+                {
+                    color: 2,
+                    speed: 10,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Merge</h1><p>Completed files</p>"
+                }
+            ]
+        );
+    }
+
+    function stop6() {
+        stopAll(sink6);
+        sink6 = [];
+        var node = document.getElementById("graph6");
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+    }
+
+</script>
+<div>
+    <blockquote style="align:center; width:100%;">
+        <p>The same actor processes every substream.</p>
+        <p><button type="button" onclick="show6()">▷ Play demo</button><button type="button" onclick="stop6()">◻ Stop</button></p>
+        <div id="graph6"></div>
+    </blockquote>
+</div>

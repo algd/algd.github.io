@@ -1,0 +1,50 @@
+<script type='text/javascript'>
+    var sink3 = [];
+
+    function show3() {
+        if (sink3.length) return;
+        sink3 = build(
+            document.getElementById("graph3"),
+            [
+                {
+                    color: 0,
+                    speed: 1,
+                    parallelism: 2,
+                    async: true,
+                    html: "<h1>Download file</h1><p>Two actors downloading in parallel</p>"
+                },
+                {
+                    color: 1,
+                    speed: 10,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Count words</h1><p>Processed by a third actor</p>"
+                },
+                {
+                    color: 2,
+                    speed: 2,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Update file</h1><p>Processed by the same actor</p>"
+                }
+            ]
+        );
+    }
+
+    function stop3() {
+        stopAll(sink3);
+        sink3 = [];
+        var node = document.getElementById("graph3");
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+    }
+
+</script>
+<div>
+    <blockquote style="align:center; width:100%;">
+        <p>Two actors download the files in parallel and one last actor executes the remaining steps.</p>
+        <p><button type="button" onclick="show3()">▷ Play demo</button><button type="button" onclick="stop3()">◻ Stop</button></p>
+        <div id="graph3"></div>
+    </blockquote>
+</div>

@@ -1,0 +1,204 @@
+<script type='text/javascript'>
+    var defaultSpeed = 2;
+    function Step(parentNode, speed, color, async, previousSteps) {
+        this.position = -47;
+        this.stop = false;
+        this.parentNode = parentNode;
+        this.max = 0;
+        this.free = previousSteps.length > 0;
+        this.nextStep = [];
+        this.color = color;
+        this.async = async;
+        this.previousSteps = previousSteps;
+        this.pushed = false;
+        this.item = null;
+        this.speed = speed;
+        this.timeout = null;
+        if (previousSteps.length) {
+            previousSteps.forEach(function(prev) {
+              prev.nextStep.push(this);
+            }.bind(this));
+        }
+    }
+
+    Step.prototype.stopStep = function() {
+        if (this.timeout !== null)
+            clearTimeout(this.timeout);
+    }
+
+    Step.prototype.pushItem = function (checkLast = true) {
+        var step = [this];
+        isFree = true;
+        var allFree;
+        var nextStep;
+        while (step.length && (step[0].nextStep.length || checkLast)) {
+            allFree = true;
+            nextStep = [];
+            for (var i = 0; i < step.length; i++) {
+                allFree = allFree && step[i].free;
+                nextStep = nextStep.concat(step[i].nextStep);
+            }
+            isFree = isFree && allFree;
+            if (step[0].async)
+                break;
+            else
+                step = nextStep;
+        }
+
+        if (isFree) {
+            this.position = -47;
+            this.free = false;
+            this.move();
+        }
+        return isFree;
+    }
+
+    Step.prototype.move = function() {
+        var currentSpeed = defaultSpeed;
+        if (this.position > 0 && this.position < this.max - 47)
+            currentSpeed = this.speed;
+
+        if (this.free) {
+            this.timeout = setTimeout(function() { this.move() }.bind(this), 30);
+            return;
+        }
+        this.position += currentSpeed;
+        this.item.style.backgroundPosition = "center " + this.position + "px";
+        if (this.position < this.max) {
+
+            if (this.position + 45 > this.max && !this.pushed) {
+                if (this.nextStep.length) {
+                    var shouldPush = true;
+                    if (this.nextStep.length > 1 && !this.nextStep[0].async) {
+                        for (var i = 0; i < this.nextStep.length; i++)
+                            shouldPush = shouldPush && this.nextStep[i].free;
+                    }
+                    if (shouldPush) {
+                        var freeSteps = this.nextStep.filter(s => s.free);
+                        if (freeSteps.length)
+                            this.pushed = freeSteps[Math.floor(Math.random()*freeSteps.length)].pushItem();
+                    }
+                }
+                else {
+                    var steps = this.previousSteps;
+                    var newSteps = [];
+                    var i;
+                    var pushTo = [];
+                    while(steps.length) {
+                        for(i = 0; i < steps.length; i++) {
+                            if (!steps[i].previousSteps.length)
+                                pushTo.push(steps[i]);
+                            else
+                                newSteps = newSteps.concat(steps[i].previousSteps)
+                        }
+                        steps = newSteps;
+                        newSteps = [];
+                    }
+                    this.pushed = true;
+                    for (i=0; i < pushTo.length; i++)
+                        this.pushed = this.pushed && (pushTo[i].free || pushTo[i].async);
+                    if (this.pushed)
+                        for (i=0; i < pushTo.length; i++)
+                            pushTo[i].pushItem(false);
+                    this.pushed = true;
+                }
+                if (!this.pushed)
+                    this.position -= currentSpeed;
+            }
+            this.timeout = setTimeout(function() { this.move() }.bind(this), 30);
+        } else {
+            this.free = true;
+            this.pushed = false;
+            if (!this.previousSteps.length && this.async) {
+                this.pushItem();
+            }
+        }
+    }
+
+    Step.prototype.show = function(start = false) {
+        var wrapper = document.createElement("div");
+        var item = document.createElement("div");
+        this.item = item;
+        wrapper.appendChild(item);
+        this.parentNode.appendChild(wrapper);
+        var img = new Image();
+        img.onload = (function() {
+            this.max = img.height;
+            wrapper.style.width = img.width/3 + 'px';
+            wrapper.style.backgroundPosition = this.color * 63 + "px 0px";
+            wrapper.style.filter = "hue-rotate(" + this.hue + "deg)";
+            item.style.width = img.width/3 + 'px';
+            item.style.height = img.height + 'px';
+            wrapper.style.backgroundImage = "url('/images/20180805/pipe.png')";
+            wrapper.style.margin = "0 auto";
+            item.style.backgroundImage = "url('/images/20180805/item1.png')";
+            item.style.backgroundRepeat = "no-repeat";
+            item.style.backgroundPosition = "center " + this.position + "px";
+
+            if (start)
+                this.move();
+
+        }).bind(this);
+        img.src = '/images/20180805/pipe.png';
+    }
+
+    function build(parentNode, data) {
+        var table = document.createElement("table");
+        table.align = "center";
+        table.style.borderCollapse = "collapse";
+        var previous = [];
+        var current = [];
+        var maxPar = 1;
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].parallelism > maxPar) maxPar = data[i].parallelism;
+        }
+
+        for (var i = 0; i < data.length; i++) {
+            var tr = document.createElement("tr");
+            for (var j = 0; j <= data[i].parallelism + 1; j++) {
+                var td = document.createElement("td");
+                td.style.padding = "0px";
+
+                if (j < data[i].parallelism) {
+                    td.colSpan = (maxPar / data[i].parallelism);
+
+                    var step = new Step(td, data[i].speed, data[i].color, data[i].async, previous);
+                    step.show(!previous.length);
+                    current.push(step);
+                } else if (j == data[i].parallelism) {
+                    td.style.width = "20px";
+                    td.style.borderRight = "3px solid";
+                    td.style.borderLeft = "6px solid white";
+                    if (data[i].async || i == 0)
+                        td.style.borderTop = "3px solid";
+                    if (data[i].async || i == data.length-1)
+                        td.style.borderBottom = "3px solid";
+                } else {
+                    td.innerHTML = data[i].html;
+                    td.style.padding = "0px 0px 0px 5px";
+                }
+
+                tr.appendChild(td);
+            }
+            previous = current;
+            current = [];
+            table.appendChild(tr);
+        }
+        parentNode.appendChild(table);
+        return previous;
+    }
+
+    function stopAll(sink) {
+        var toStop = sink;
+        var nextToStop = [];
+        var i;
+        while(toStop.length) {
+            for(i = 0; i < toStop.length; i++) {
+                toStop[i].stopStep();
+                nextToStop = nextToStop.concat(toStop[i].previousSteps);
+            }
+            toStop = nextToStop;
+            nextToStop = [];
+        }
+    }
+</script>

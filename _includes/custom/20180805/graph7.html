@@ -1,0 +1,50 @@
+<script type='text/javascript'>
+    var sink7 = [];
+
+    function show7() {
+        if (sink7.length) return;
+        sink7 = build(
+            document.getElementById("graph7"),
+            [
+                {
+                    color: 0,
+                    speed: 10,
+                    parallelism: 1,
+                    async: true,
+                    html: "<h1>GroupBy</h1><p>Files to update</p>"
+                },
+                {
+                    color: 1,
+                    speed: 1,
+                    parallelism: 3,
+                    async: true,
+                    html: "<h1>Update file</h1><p>Processed by three actors in parallel</p>"
+                },
+                {
+                    color: 2,
+                    speed: 10,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Merge</h1><p>Completed files</p>"
+                }
+            ]
+        );
+    }
+
+    function stop7() {
+        stopAll(sink7);
+        sink7 = [];
+        var node = document.getElementById("graph7");
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+    }
+
+</script>
+<div>
+    <blockquote style="align:center; width:100%;">
+        <p>A different actor handles each substream.</p>
+        <p><button type="button" onclick="show7()">▷ Play demo</button><button type="button" onclick="stop7()">◻ Stop</button></p>
+        <div id="graph7"></div>
+    </blockquote>
+</div>

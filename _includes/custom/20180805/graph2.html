@@ -1,0 +1,50 @@
+<script type='text/javascript'>
+    var sink2 = [];
+
+    function show2() {
+        if (sink2.length) return;
+        sink2 = build(
+            document.getElementById("graph2"),
+            [
+                {
+                    color: 0,
+                    speed: 1,
+                    parallelism: 2,
+                    async: false,
+                    html: "<h1>Download file</h1><p>The actor waits for the futures</p>"
+                },
+                {
+                    color: 1,
+                    speed: 10,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Count words</h1><p>Processed by the same actor</p>"
+                },
+                {
+                    color: 2,
+                    speed: 2,
+                    parallelism: 1,
+                    async: false,
+                    html: "<h1>Update file</h1><p>Processed by the same actor</p>"
+                }
+            ]
+        );
+    }
+
+    function stop2() {
+        stopAll(sink2);
+        sink2 = [];
+        var node = document.getElementById("graph2");
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+    }
+
+</script>
+<div>
+    <blockquote style="align:center; width:100%;">
+        <p>The same actor waits for the futures to be completed and pushes the results. </p>
+        <p><button type="button" onclick="show2()">▷ Play demo</button><button type="button" onclick="stop2()">◻ Stop</button></p>
+        <div id="graph2"></div>
+    </blockquote>
+</div>

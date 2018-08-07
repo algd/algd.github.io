@@ -205,6 +205,18 @@
     color: $grey-color;
 }
 
+.post-level {
+    font-size: $small-font-size;
+    color: $white;
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 5px;
+}
+
+.post-level[level="Intermediate"] { background-color:  #695b89; }
+.post-level[level="Beginner"] { background-color: #70ae9b; }
+.post-level[level="Advanced"] { background-color: #bd3460; }
+
 .post-link {
     display: block;
     font-size: 24px;
