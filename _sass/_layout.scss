@@ -2,12 +2,17 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $grey-color-dark;
     border-bottom: 1px solid $grey-color-light;
+    background-color: $grey-color-lighter;
     min-height: 56px;
 
     // Positioning context for the mobile navigation icon
     position: relative;
+}
+
+.site-header .wrapper {
+    background-image: url("/images/header.png");
+    background-repeat: no-repeat;
 }
 
 .site-title {
@@ -93,7 +98,17 @@
  */
 .site-footer {
     border-top: 1px solid $grey-color-light;
-    padding: $spacing-unit 0;
+    padding: 0;
+    background-color: $grey-color-lighter;
+    a {
+        color: $text-color;
+    }
+}
+
+.site-footer .wrapper {
+    background-image: url("/images/footer.png");
+    background-repeat: no-repeat;
+    padding: 30px;
 }
 
 .footer-heading {
@@ -109,7 +124,6 @@
 
 .footer-col-wrapper {
     font-size: 15px;
-    color: $grey-color;
     margin-left: -$spacing-unit / 2;
     @extend %clearfix;
 }
@@ -162,7 +176,15 @@
  * Page content
  */
 .page-content {
-    padding: $spacing-unit 0;
+    padding: 0;
+    background-color: $grey-color-lighter;
+    flex: 1;
+}
+
+.page-content .wrapper {
+    padding: $spacing-unit;
+    background-color: $white;
+    height: 100%;
 }
 
 .page-heading {
@@ -233,4 +255,13 @@
             font-size: 18px;
         }
     }
+}
+
+
+.time-table {
+  border-collapse: collapse;
+
+  table, td, th {
+    border: 1px solid black;
+  }
 }
