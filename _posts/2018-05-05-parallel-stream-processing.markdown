@@ -2,7 +2,7 @@
 layout: post
 title:  "Parallel stream processing with Akka Streams"
 date:   2018-08-05 20:36:40
-image:  "test2"
+image:  "/images/20180805/icon.png"
 level: Intermediate
 categories: Akka
 ---
@@ -72,7 +72,7 @@ Starting [Download file] for [item 3]
 
 ## Horizontal parallelism
 
-This kind of parallelism refers to executing the same code in parallel for different data.  From the previous steps, we can parallelise the file download and the word count. We can achieve this in different ways.
+This type of parallelism refers to executing the same code in parallel for different data. From the previous steps, we can parallelise the file download and the word count. We can achieve this in different ways.
 
 #### MapAsync
 Usually when we work with this kind of tasks they are wrapped in a future, so we can use `mapAsync`. Let's say we want to download two files simultaneously, then we set the parameter `parallelism` to 2:
@@ -297,8 +297,3 @@ Finishing [Update file 2] for [item 4]
 For more information about parallelism and pipelining check the [Akka Streams documentation][akka-streams-doc].
 
 [akka-streams-doc]: https://doc.akka.io/docs/akka/current/stream/stream-parallelism.html?language=scala
-[image1]: /images/20180805/image1.gif
-[image2]: /images/20180805/image2.gif
-[image3]: /images/20180805/image3.gif
-[image4]: /images/20180805/image4.gif
-[image5]: /images/20180805/image5.gif

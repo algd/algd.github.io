@@ -197,7 +197,14 @@
 
     > li {
         margin-bottom: $spacing-unit;
+        display: flex;
     }
+
+
+}
+
+.post-list img {
+  margin: 5px;
 }
 
 .post-meta {
