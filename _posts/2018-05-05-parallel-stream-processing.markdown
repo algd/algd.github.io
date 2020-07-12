@@ -3,8 +3,9 @@ layout: post
 title:  "Parallel stream processing with Akka Streams"
 date:   2018-08-05 20:36:40
 image:  "/images/20180805/icon.png"
+header: "/images/20180805/header.jpg"
 level: Intermediate
-categories: Akka
+categories: "Akka Streams"
 ---
 
 {% include custom/20180805/streams.html %}

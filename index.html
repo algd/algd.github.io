@@ -10,12 +10,14 @@ order: 1
 
   <ul class="post-list">
     {% for post in site.posts %}
-      <li>
-        <div><img src="{{ post.image }}"/></div>
+      <li style="background-image: url('{{ post.header }}');">
+        <div style="background-color: white; padding-top: 5px"><img src="{{ post.image }}"/></div>
         <div style="flex:1">
-          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }} </span>
-          <span class="post-level" level="{{ post.level }}">{{ post.level }}</span>
-          <h2>
+          <div class="post-meta-container">
+            <span class="post-meta" >{{ post.date | date: "%b %-d, %Y" }} </span>
+            <span class="post-level" level="{{ post.level }}">{{ post.level }}</span>
+          </div>
+          <h2 style="margin-bottom: 0px">
             <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
           </h2>
         </div>

@@ -3,6 +3,7 @@ layout: post
 title:  "Validate configuration as a case class with Cats and Shapeless"
 date:   2018-08-22 18:34:40
 image:  "/images/20180822/icon.png"
+header: "/images/20180822/header.jpg"
 level: Intermediate
 categories: Shapeless
 ---
