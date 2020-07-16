@@ -1,5 +1,6 @@
 # Site settings
 title: Álvaro García Delgado
+author: Álvaro García Delgado
 email: alvaro.garcia.de@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   The purpose of this site is collecting some Scala knowledge that may be useful to me in case I need to remember

@@ -20,14 +20,17 @@ $brand-color:      #2a7ae2;
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 30%);
 $grey-color-lighter: lighten($grey-color, 40%);
+$almost-white: #f4f4f4;
 $grey-color-dark:  darken($grey-color, 25%);
 $white:            #fff;
 
 // Width of the content area
 $content-width:    800px;
+$side-width:       250px;
 
 $on-palm:          600px;
 $on-laptop:        800px;
+$on-big-screen:    1100px;
 
 
 
@@ -44,7 +47,11 @@ $on-laptop:        800px;
     }
 }
 
-
+@mixin media-query-not($device) {
+    @media screen and (min-width: $device) {
+        @content;
+    }
+}
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
