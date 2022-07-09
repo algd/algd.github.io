@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Online game example with FS2"
-date:   2021-06-27 23:23:10
+date:   2020-07-22 23:23:10
 image:  "/images/20200722/icon.png"
 header: "/images/20200722/header.jpg"
 level: Advanced
