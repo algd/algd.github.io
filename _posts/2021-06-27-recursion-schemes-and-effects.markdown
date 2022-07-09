@@ -2,8 +2,8 @@
 layout: post
 title:  "Fighting with Recursion Schemes"
 date:   2021-06-27 23:23:10
-image:  "/images/20210627-2/icon.png"
-header: "/images/20210627-2/header.jpg"
+image:  "/images/20210627/icon.png"
+header: "/images/20210627/header.jpg"
 level: Advanced
 categories: Recursion-Schemes Cats-Effect ScalaJS Example
 ---
