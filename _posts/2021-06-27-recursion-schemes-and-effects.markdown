@@ -496,7 +496,7 @@ these rules:
     * If you don't have the required points, it will rest by default
 * The winner will be the one that deals more damage to the opponent (3 max)
 
-{% include custom/20210627/example.html %}
+See example [here][game-example].
 
 
 ### And more!
@@ -519,3 +519,4 @@ Check droste for more implementations, or read about more morphisms:
 [droste]: https://github.com/higherkindness/droste
 [fixed-point]: https://en.wikipedia.org/wiki/Fixed_point_(mathematics)
 [intro]: https://free.cofree.io/2017/11/13/recursion/
+[game-example]: https://algd.github.io/recursion-schemes-talk/shared.html
